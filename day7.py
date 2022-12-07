@@ -42,8 +42,7 @@ target = 30000000 - (70000000 - dirs["/"])
 answer = 70000000
 
 for name, size in dirs.items():
-    if size >= target:
-        if size <= answer:
-            answer = size
+    if answer >= size >= target:
+        answer = size
 
 print(answer)
