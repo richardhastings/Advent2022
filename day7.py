@@ -10,22 +10,21 @@ dirs = {"/": 0}
 
 for input in inputs:
     if input[0] == "$":  # command
-        parse = re.match("\$ (..) ?(.*)", input)
-        if parse.group(1) == "cd":
-            if parse.group(2) == "/":
+        command = re.match("\$ (..) ?(.*)", input).groups()
+        if command[0] == "cd":
+            if command[1] == "/":
                 path = ["/"]
-            elif parse.group(2) == "..":
+            elif command[1] == "..":
                 path.pop()
             else:
-                path.append("".join(path) + "/" + parse.group(2))
+                path.append("".join(path) + "/" + command[1])
         else:
-            continue
+            continue  # ls command - nothing to do
     elif input[0:3] == "dir":
-        continue
-    else:
-        parse = re.match("(\d*) (.*)", input)
-        size = int(parse.group(1))
-        for p in path:
+        continue  # dir lines aren't useful
+    else:  # this is a file
+        size = int(re.match("(\d*).*", input).group(1))
+        for p in path:  # add the size to all dirs in the path
             if p in dirs:
                 dirs[p] += size
             else:
