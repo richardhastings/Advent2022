@@ -7,15 +7,18 @@ inputs = advent.re_input("(....) ?(-?\d{0,9})?", 10)
 def render_cycle(stdscr, cycle, x):
     horiz = cycle % 40
     if horiz - 1 <= x <= horiz + 1:
-        pixel = "#"
+        pixel = "█"
     else:
-        pixel = "."
-    stdscr.addstr(cycle // 40, horiz, pixel)
+        pixel = " "
+    stdscr.addstr(cycle // 40, horiz, pixel, curses.color_pair(1))
 
 
 def main(stdscr):
     cycle = 0
     x = 1
+    curses.curs_set(False)
+    curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.start_color()
     stdscr.clear()
     for this_input in inputs:
         command = this_input[0]
