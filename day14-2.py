@@ -44,9 +44,6 @@ for path in paths:
 for x in range(400):
     grid[max_y][x] = "#"
 
-
-this_sand_x = sand_x
-this_sand_y = sand_y
 while grid[sand_y][sand_x] == "+":
     this_sand_x = sand_x
     this_sand_y = sand_y
